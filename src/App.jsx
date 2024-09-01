@@ -6,7 +6,9 @@ import {
 } from "react-router-dom";
 import useStore from "./store/store";
 import Cookies from "js-cookie";
-import axios from "axios";
+
+//middleware
+import checkAuth from "./utils/checkAuth";
 
 //routes
 import AuthorizedRoute from "./routes/AuthorizedRoute";
@@ -15,8 +17,13 @@ import RequiredAuth from "./routes/RequiredAuth";
 import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
 import Dashboard from "./pages/dashboard/Dashboard";
+import { useEffect } from "react";
 function App() {
-  const { setIsLoggedIn } = useStore();
+  const { isLoggedIn } = useStore();
+
+  useEffect(() => {
+    checkAuth();
+  }, [isLoggedIn]);
 
   return (
     <Router>
