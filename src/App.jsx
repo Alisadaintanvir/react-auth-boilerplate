@@ -5,7 +5,6 @@ import {
   Navigate,
 } from "react-router-dom";
 import useStore from "./store/store";
-import Cookies from "js-cookie";
 
 //middleware
 import checkAuth from "./utils/checkAuth";

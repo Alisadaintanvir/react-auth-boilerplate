@@ -3,6 +3,9 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Cookies from "js-cookie";
 import useStore from "../../store/store";
+import API_CONFIG from "../../utils/apiConstant";
+
+const BASE_URL = API_CONFIG.API_ENDPOINT;
 
 function Login() {
   const navigate = useNavigate();
@@ -23,12 +26,9 @@ function Login() {
     e.preventDefault();
 
     try {
-      const response = await axios.post(
-        "http://localhost:5000/api/login",
-        formData
-      );
+      const response = await axios.post(`${BASE_URL}/api/login`, formData);
 
-      const { token, user } = response.data;
+      const { token } = response.data;
       if (response.status === 200) {
         Cookies.set("accessToken", token, {
           expires: 7,
@@ -36,7 +36,6 @@ function Login() {
           secure: true,
         });
         setIsLoggedIn(true);
-        setUser(user);
         navigate("/");
       }
     } catch (err) {

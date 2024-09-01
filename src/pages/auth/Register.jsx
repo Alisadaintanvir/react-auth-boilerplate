@@ -2,6 +2,9 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Cookies from "js-cookie";
+import API_CONFIG from "../../utils/apiConstant";
+
+const BASE_URL = API_CONFIG.API_ENDPOINT;
 
 function Register() {
   const navigate = useNavigate();
@@ -28,10 +31,7 @@ function Register() {
         return;
       }
 
-      const response = await axios.post(
-        "http://localhost:5000/api/register",
-        formData
-      );
+      const response = await axios.post(`${BASE_URL}/api/register`, formData);
 
       if (response.status === 200) {
         const { token } = response.data;
